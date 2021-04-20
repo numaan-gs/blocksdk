@@ -1,0 +1,31 @@
+<html>
+<head>
+    <style>
+        .custom-textarea {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="plain-textarea" 
+    placeholder="GSDM plain text" 
+    class="slds-textarea custom-textarea" 
+    rows="5">
+    </textarea>
+</body>
+<script src="/blocksdk"></script>
+<script>
+    var sdk = new window.sfdc.BlockSDK({
+        blockEditorWidth: 600,
+        tabs: ["htmlblock", "stylingblock"],
+    });
+
+    sdk.getContent(function (data) {
+        if (data) {
+            document.getElementById("plain-textarea").value = data;
+        }
+    });
+
+</script>
+
+</html>
