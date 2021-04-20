@@ -12,6 +12,8 @@
     class="slds-textarea custom-textarea" 
     rows="5">
     </textarea>
+
+    <button onclick="setContent()">click here</button>
 </body>
 <script src="/blocksdk"></script>
 <script>
@@ -19,12 +21,19 @@
         blockEditorWidth: 600,
         tabs: ["htmlblock", "stylingblock"],
     });
-
+    /*
     sdk.getContent(function (data) {
         if (data) {
             document.getElementById("plain-textarea").value = data;
         }
     });
+    */
+
+    function setContent(){
+        var htmlvalue = document.getElementById("plain-textarea").value;
+        sdk.setContent(htmlvalue);
+		sdk.setSuperContent('This is super content: ' + htmlvalue);
+    }
 
 </script>
 
