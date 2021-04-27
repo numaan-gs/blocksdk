@@ -25,6 +25,7 @@
 <script>
     document.getElementById("selection-name").addEventListener("change", setSuperContent);
     document.getElementById("plain-textarea").addEventListener("change", setContent);
+    const regPattern = /(?<=\>)(.*)(?=\<\/)/;
 
     var sdk = new window.sfdc.BlockSDK({
         blockEditorWidth: 600,
@@ -34,7 +35,10 @@
     sdk.getContent(function (data) {
         console.log(data);
         if (data) {
-            document.getElementById("plain-textarea").value = data;
+            
+            var plainTextArry = data.split(regPattern);
+
+            document.getElementById("plain-textarea").value = plainTextArry[1];
         }
     });
     
@@ -42,7 +46,7 @@
     sdk.getData(function (data) { 
         console.log(data);
         if (data) {
-            document.getElementById("selection-name").value = data["dmRichTextBlock"]["selectionName"];
+            document.getElementById("selection-name").value = data["dmFreeTextBlock"]["selectionName"];
         }
     });
 
@@ -54,17 +58,18 @@
 
     function setContent(){
         var plainTextValue = document.getElementById("plain-textarea").value;
+        var selectionNameValue = document.getElementById("selection-name").value;
         var testBlock = {
             "dmFreeTextBlock":
             {
                 "dmBlockId": 1619488597591,
                 "version": 1,
-                "selectionName": "Free Text Block Numaan",
-                "description": "",
+                "selectionName": selectionNameValue,
+                "description": plainTextValue,
                 "charLimit": "4000"
             }
         };
-        sdk.setContent(`<div data-dm-block-id="1619488597591" class="dm-free-text-block" data-content="Click To Edit (B)">`+plainTextValue+`</div>`);
+        sdk.setContent(`<div data-dm-block-id="1619488597591" class="dm-free-text-block">`+plainTextValue+`</div>`);
         sdk.setData(testBlock);
     }
 
