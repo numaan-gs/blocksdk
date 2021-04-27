@@ -1,20 +1,29 @@
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.15.3/styles/salesforce-lightning-design-system.min.css" />
     <style>
-        .custom-textarea {
-            width: 100%;
-        }
+     
     </style>
 </head>
 <body>
-    <textarea id="plain-textarea" 
-    placeholder="Enter text here" 
-    class="slds-textarea custom-textarea" 
-    rows="5"></textarea>
+    <div class="slds-grid slds-grid_vertical slds-p-around_small">
+        <div class="slds-col">
+            <input class="slds-input" id="selection-name" maxlength="50" type="text" value="Plain Text Block">
+        </div>
+        <div class="slds-col">
+            <textarea id="plain-textarea" 
+            placeholder="Enter plain text here" 
+            class="slds-textarea custom-textarea" 
+            rows="5"
+            maxlength="4000"></textarea>
+        </div>
+    </div>
+    
 
 </body>
 <script src="/blocksdk"></script>
 <script>
+    document.getElementById("selection-name").addEventListener("change", setSuperContent);
     document.getElementById("plain-textarea").addEventListener("change", setContent);
 
     var sdk = new window.sfdc.BlockSDK({
@@ -28,9 +37,13 @@
         }
     });
     */
+    function setSuperContent(){
+        var selectionNameValue = document.getElementById("selection-name").value;
+		sdk.setSuperContent(selectionNameValue);
+    }
 
     function setContent(){
-        var htmlvalue = document.getElementById("plain-textarea").value;
+        var plainTextValue = document.getElementById("plain-textarea").value;
         var testBlock = {
             "dmFreeTextBlock":
             {
@@ -41,8 +54,7 @@
                 "charLimit": "4000"
             }
         };
-        sdk.setContent(htmlvalue);
-		sdk.setSuperContent(htmlvalue);
+        sdk.setContent(`<div data-dm-block-id="1619488597591" class="dm-free-text-block" data-content="Click To Edit (B)">`+plainTextValue+`</div>`);
         sdk.setData(testBlock);
     }
 
