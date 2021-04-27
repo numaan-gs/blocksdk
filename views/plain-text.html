@@ -30,18 +30,18 @@
         blockEditorWidth: 600,
         tabs: ["htmlblock", "stylingblock"],
     });
-    /*
+    
     sdk.getContent(function (data) {
         if (data) {
             document.getElementById("plain-textarea").value = data;
         }
     });
-    */
+    
 
     sdk.getData(function (data) { 
         console.log(data);
         if (data) {
-
+            document.getElementById("selection-name").value = data["dmRichTextBlock"]["selectionName"];
         }
     });
 
