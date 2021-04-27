@@ -28,10 +28,11 @@
 
     var sdk = new window.sfdc.BlockSDK({
         blockEditorWidth: 600,
-        tabs: ["htmlblock", "stylingblock"],
+        tabs: ["htmlblock", "stylingblock"]
     });
     
     sdk.getContent(function (data) {
+        console.log(data);
         if (data) {
             document.getElementById("plain-textarea").value = data;
         }
