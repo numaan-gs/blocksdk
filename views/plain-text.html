@@ -37,6 +37,15 @@
         }
     });
     */
+
+    sdk.getData(function (data) { 
+        console.log(data);
+        if (data) {
+
+        }
+    });
+
+
     function setSuperContent(){
         var selectionNameValue = document.getElementById("selection-name").value;
 		sdk.setSuperContent(selectionNameValue);
