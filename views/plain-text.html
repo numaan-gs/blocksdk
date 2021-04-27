@@ -31,9 +31,19 @@
 
     function setContent(){
         var htmlvalue = document.getElementById("plain-textarea").value;
+        var testBlock = {
+            "dmFreeTextBlock":
+            {
+                "dmBlockId": 1619488597591,
+                "version": 1,
+                "selectionName": "Free Text Block Numaan",
+                "description": "",
+                "charLimit": "4000"
+            }
+        };
         sdk.setContent(htmlvalue);
 		sdk.setSuperContent(htmlvalue);
-        sdk.setData(htmlvalue);
+        sdk.setData(testBlock);
     }
 
 </script>
