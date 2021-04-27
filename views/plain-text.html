@@ -12,11 +12,11 @@
     class="slds-textarea custom-textarea" 
     rows="5">
     </textarea>
-
-    <button onclick="setContent()">click here</button>
 </body>
 <script src="/blocksdk"></script>
 <script>
+    document.getElementById("plain-textarea").addEventListener("change", setContent);
+
     var sdk = new window.sfdc.BlockSDK({
         blockEditorWidth: 600,
         tabs: ["htmlblock", "stylingblock"],
@@ -32,7 +32,8 @@
     function setContent(){
         var htmlvalue = document.getElementById("plain-textarea").value;
         sdk.setContent(htmlvalue);
-		sdk.setSuperContent('This is super content: ' + htmlvalue);
+		sdk.setSuperContent(htmlvalue);
+        sdk.setData(htmlvalue);
     }
 
 </script>
