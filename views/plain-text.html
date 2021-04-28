@@ -43,7 +43,7 @@
 </body>
 <script src="/blocksdk/blocksdk.js"></script>
 <script>
-    const regPattern = /(?<=\>)(.*)(?=\<\/)/;
+
     const descriptionId = 'description';
     const selectionNameId = 'selectionName';
     const charLimitId = 'charLimit';
@@ -61,10 +61,7 @@
     sdk.getContent(function (data) {
         console.log(data);
         if (data) {
-            
-            var plainTextArry = data.split(regPattern);
-
-            document.getElementById(descriptionId).value = plainTextArry[1];
+            document.getElementById(descriptionId).value = data;
         }
     });
     
