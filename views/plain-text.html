@@ -46,13 +46,16 @@
     const regPattern = /(?<=\>)(.*)(?=\<\/)/;
     const descriptionId = 'description';
     const selectionNameId = 'selectionName';
+    const charLimitId = 'charLimit';
+    const blockId = Math.random();
 
-    document.getElementById(selectionNameId).addEventListener("change", setSuperContent);
-    document.getElementById(descriptionId).addEventListener("change", setContent);
+    document.getElementById(selectionNameId).addEventListener('change', setContent);
+    document.getElementById(descriptionId).addEventListener('change', setContent);
+    document.getElementById(charLimitId).addEventListener('change', setContent);
 
     var sdk = new window.sfdc.BlockSDK({
         blockEditorWidth: 600,
-        tabs: ["htmlblock", "stylingblock"]
+        tabs: ['htmlblock', 'stylingblock']
     });
     
     sdk.getContent(function (data) {
@@ -68,32 +71,35 @@
 
     sdk.getData(function (data) { 
         console.log(data);
-        if (data && data["dmFreeTextBlock"]) {
-            document.getElementById(selectionNameId).value = data["dmFreeTextBlock"]["selectionName"];
+        if (data && data['dmFreeTextBlock']) {
+            document.getElementById(selectionNameId).value = data['dmFreeTextBlock']['selectionName'];
         }
     });
 
-
+    /*
     function setSuperContent(){
         var selectionNameValue = document.getElementById(selectionNameId).value;
 		sdk.setSuperContent(selectionNameValue);
     }
+    */
 
     function setContent(){
-        var plainTextValue = document.getElementById(descriptionId).value;
-        var selectionNameValue = document.getElementById(selectionNameId).value;
-        var testBlock = {
-            "dmFreeTextBlock":
+        const plainTextValue = document.getElementById(descriptionId).value;
+        const selectionNameValue = document.getElementById(selectionNameId).value;
+        const charLimitValue = document.getElementById(charLimitId).value;
+        const dmTextBlock = {
+            dmFreeTextBlock:
             {
-                "dmBlockId": 1619488597591,
-                "version": 1,
-                "selectionName": selectionNameValue,
-                "description": plainTextValue,
-                "charLimit": "4000"
+                dmBlockId: blockId,
+                version: 1,
+                selectionName: selectionNameValue,
+                description: plainTextValue,
+                charLimit: charLimitValue
             }
         };
-        sdk.setContent(`<div data-dm-block-id="1619488597591" class="dm-free-text-block">`+plainTextValue+`</div>`);
-        sdk.setData(testBlock);
+        sdk.setSuperContent(selectionNameValue);
+        sdk.setContent(plainTextValue);
+        sdk.setData(dmTextBlock);
     }
 
 </script>
